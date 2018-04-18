@@ -1,27 +1,9 @@
-/*
- * Create a list that holds all of your cards
- */
+// Create a list that holds all cards
+
 var cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 
 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 
 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
  
-/*Then in a separate function, you’ll want to loop through this array 
-and for each loop, add the HTML to the individual card and append that HTML 
-to the deck class. So each card gets generated and added to the page.*/
-
-
-cards.forEach(function(element) {
-    var deck = document.querySelector('.deck');
-    deck.insertAdjacentHTML('beforeend', '<li class="card"><i class="fa"></i></li>');
-})
-
-/* Add a class name from an array 'cards' to each card */
-
-var icko = document.querySelectorAll('.card i');
-
-for (var i = 0; i < icko.length; i++) {
-    icko[i].classList.add(cards[i]);
-}
 
 /*
  * Display the cards on the page
@@ -45,11 +27,22 @@ function shuffle(array) {
     return array;
 }
 
+//loop through each card and create its HTML and add each card's HTML to the page
+
+cards.forEach(function(element) {
+    var deck = document.querySelector('.deck');
+    deck.insertAdjacentHTML('beforeend', '<li class="card"><i class="fa"></i></li>');
+})
+
+
+// Add a class name from an array 'shuffledCards' to each card
+
+var icko = document.querySelectorAll('.card i');
 let shuffledCards = shuffle(cards);
 
-var restart = document.querySelector('.restart i');
-
-restart.addEventListener('click', shuffle(cards));
+for (var i = 0; i < icko.length; i++) {
+    icko[i].classList.add(shuffledCards[i]);
+}
 
 
 /*
