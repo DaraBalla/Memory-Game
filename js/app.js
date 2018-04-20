@@ -7,9 +7,9 @@ var cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube'
 
 /*
  * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
+ *   - shuffle the list of cards using the provided "shuffle" method below = done
+ *   - loop through each card and create its HTML = pomoci jednoho for of loopu
+ *   - add each card's HTML to the page = pomoci doc.fragmentu, add to DOM
  */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -29,21 +29,26 @@ function shuffle(array) {
 
 //loop through each card and create its HTML and add each card's HTML to the page
 
-cards.forEach(function(element) {
-    var deck = document.querySelector('.deck');
-    deck.insertAdjacentHTML('beforeend', '<li class="card"><i class="fa"></i></li>');
-})
-
-
-// Add a class name from an array 'shuffledCards' to each card
-
-var icko = document.querySelectorAll('.card i');
 let shuffledCards = shuffle(cards);
 
-for (var i = 0; i < icko.length; i++) {
-    icko[i].classList.add(shuffledCards[i]);
+const docFragment = document.createDocumentFragment();
+
+for (let card of cards) {    
+    var newLi = document.createElement('li');
+    var newI = document.createElement('i');
+    var classLi = newLi.classList.add('card');
+    var classI = newI.classList.add('fa');
+    docFragment.appendChild(newLi).appendChild(newI);
+    var icko = document.querySelectorAll('.card i');
+        for (var i = 0; i < icko.length; i++) {
+        icko[i].classList.add(shuffledCards[i])};
 }
 
+
+// Add a docFragment to .deck
+
+var deck = document.querySelector('.deck');
+deck.appendChild(docFragment)
 
 /*
  * set up the event listener for a card. If a card is clicked:
