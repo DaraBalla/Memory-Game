@@ -27,9 +27,11 @@ function shuffle(array) {
     return array;
 }
 
-//loop through each card and create its HTML and add each card's HTML to the page
+// Make cards array shuffled
 
-let shuffledCards = shuffle(cards);
+shuffle(cards);
+
+// Loop through each card and create its HTML and add each card's HTML to the docFragment
 
 const docFragment = document.createDocumentFragment();
 
@@ -38,15 +40,12 @@ for (let card of cards) {
     var newI = document.createElement('i');
     newLi.classList.add('card');
     newI.classList.add('fa');
-    newI.classList.add(shuffledCards[i]);
+    newI.classList.add(card);
     docFragment.appendChild(newLi).appendChild(newI);
-    /*var icko = document.querySelectorAll('.card i');
-        for (var i = 0; i < icko.length; i++) {
-        icko[i].classList.add(shuffledCards[i])};*/
 }
 
 
-// Add a docFragment to .deck
+// Add a docFragment to .deck (to the page HTML)
 
 var deck = document.querySelector('.deck');
 deck.appendChild(docFragment)
