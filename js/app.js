@@ -27,28 +27,23 @@ function shuffle(array) {
     return array;
 }
 
-// Make cards array shuffled
 
-shuffle(cards);
-
-// Loop through each card and create its HTML and add each card's HTML to the docFragment
-
-const docFragment = document.createDocumentFragment();
-
-for (let card of cards) {    
-    var newLi = document.createElement('li');
-    var newI = document.createElement('i');
-    newLi.classList.add('card');
-    newI.classList.add('fa');
-    newI.classList.add(card);
-    docFragment.appendChild(newLi).appendChild(newI);
+function newCards () {
+    shuffle(cards); // Make cards array shuffled
+    const docFragment = document.createDocumentFragment();
+    for (let card of cards) {    // Loop through each card and create its HTML and add each card's HTML to the docFragment
+        var newLi = document.createElement('li');
+        var newI = document.createElement('i');
+        newLi.classList.add('card');
+        newI.classList.add('fa');
+        newI.classList.add(card);
+        docFragment.appendChild(newLi).appendChild(newI);
+    }
+    var deck = document.querySelector('.deck');
+    deck.appendChild(docFragment);  // Add a docFragment to .deck (to the page HTML)
 }
 
-
-// Add a docFragment to .deck (to the page HTML)
-
-var deck = document.querySelector('.deck');
-deck.appendChild(docFragment)
+window.onload = newCards();
 
 /*
  * set up the event listener for a card. If a card is clicked:
