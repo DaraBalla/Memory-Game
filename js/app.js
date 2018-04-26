@@ -45,9 +45,45 @@ function newCards () {
 
 window.onload = newCards();
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
+/* set up the event listener for a card. If a card is clicked:*/
+
+
+/* VAR 1
+let card = document.querySelector('.card'); //THIS WORKS, BUT ONLY IF I SELECT ONLY THE ONE CLASS, DON'T WORK WITH querySelectorAll
+card.addEventListener('click', showCard);
+*/
+
+
+/* VAR 2
+for (let card of cards) {
+    card.addEventListener('click', showCard); //app.js:59 Uncaught TypeError: card.addEventListener is not a function
+}
+*/
+
+/* VAR 3 //addEvenetListener doesn't work
+var divs = document.querySelector('.card');
+for (var i = 0; i < divs.length; i++) {
+    divs[i].addEventListener('click', showCard);
+}
+*/
+
+/* VAR 4 //app.js:79 Uncaught TypeError: Cannot read property 'add' of undefined
+    at showCard (app.js:79)
+showCard @ app.js:79
+cards.forEach(function() {
+    this.addEventListener('click', showCard);
+});
+
+var divs = document.querySelectorAll('.card');
+*/
+
+function showCard () {
+    divs.classList.add('show');
+}
+
+
+
+ /*  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
