@@ -60,7 +60,7 @@ for (let card of cards) {
 }
 */
 
-/* VAR 3 //addEvenetListener doesn't work
+/* VAR 3 //addEventListener DOESN'T WORK
 var divs = document.querySelector('.card');
 for (var i = 0; i < divs.length; i++) {
     divs[i].addEventListener('click', showCard);
@@ -73,9 +73,9 @@ showCard @ app.js:79
 cards.forEach(function() {
     this.addEventListener('click', showCard);
 });
+*/
 
 var divs = document.querySelectorAll('.card');
-*/
 
 function showCard () {
     divs.classList.add('show');
