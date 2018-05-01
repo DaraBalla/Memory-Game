@@ -47,39 +47,15 @@ window.onload = newCards();
 
 /* set up the event listener for a card. If a card is clicked:*/
 
-
-/* VAR 1
-let card = document.querySelector('.card'); //THIS WORKS, BUT ONLY IF I SELECT ONLY THE ONE CLASS, DON'T WORK WITH querySelectorAll
-card.addEventListener('click', showCard);
-*/
-
-
-/* VAR 2
-for (let card of cards) {
-    card.addEventListener('click', showCard); //app.js:59 Uncaught TypeError: card.addEventListener is not a function
-}
-*/
-
-/* VAR 3 //addEventListener DOESN'T WORK
-var divs = document.querySelector('.card');
-for (var i = 0; i < divs.length; i++) {
-    divs[i].addEventListener('click', showCard);
-}
-*/
-
-/* VAR 4 //app.js:79 Uncaught TypeError: Cannot read property 'add' of undefined
-    at showCard (app.js:79)
-showCard @ app.js:79
-cards.forEach(function() {
-    this.addEventListener('click', showCard);
-});
-*/
-
-var divs = document.querySelectorAll('.card');
+document.querySelector('.deck').addEventListener('click', showCard)
 
 function showCard () {
-    divs.classList.add('show');
+    if (event.target.nodeName === 'LI') {
+        event.target.classList.add('show');
+    }
 }
+
+
 
 
 
