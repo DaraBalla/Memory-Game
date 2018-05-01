@@ -45,21 +45,42 @@ function newCards () {
 
 window.onload = newCards();
 
-/* set up the event listener for a card. If a card is clicked:*/
+/* set up the event listener for a card. If a card is clicked:
+- display the card's symbol (put this functionality in another function that you call from this one)*/
 
-document.querySelector('.deck').addEventListener('click', showCard)
+let deck = document.querySelector('.deck');
+deck.addEventListener('click', showCard)
 
-function showCard () {
+let openedCards = [];
+
+function showCard (card) {
     if (event.target.nodeName === 'LI') {
-        event.target.classList.add('show');
+        event.target.classList.add('show', 'open');
+        if (openedCards.length < 2) {
+            openedCards.push(event.target);
+        }
+        if (openedCards.length >= 2 ) {  //if více, zruš eventListener.
+            deck.removeEventListener('click', showCard)
+            }
+        
+        };
+        
+    }
+
+/* DRAFT
+function matchCard () {
+    if (openedCards[0] === openedCards[1]) {
+        event.target.classList.remove('show', 'open').add('match');
+    }
+    else {
+        event.target.classList.remove('show', 'open');
+        openedCards = [];
     }
 }
+*/
 
 
-
-
-
- /*  - display the card's symbol (put this functionality in another function that you call from this one)
+ /*  
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
