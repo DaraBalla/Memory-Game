@@ -56,28 +56,36 @@ let openedCards = [];
 function showCard (card) {
     if (event.target.nodeName === 'LI') {
         event.target.classList.add('show', 'open');
-        if (openedCards.length < 2) {
+        if (openedCards.length < 2) {   // if there are less than two cards in openedCards array, add the clicked one to this array
             openedCards.push(event.target);
         }
-        if (openedCards.length >= 2 ) {  //if více, zruš eventListener.
-            deck.removeEventListener('click', showCard)
-            }
-        
-        };
-        
-    }
-
-/* DRAFT
-function matchCard () {
-    if (openedCards[0] === openedCards[1]) {
-        event.target.classList.remove('show', 'open').add('match');
-    }
-    else {
-        event.target.classList.remove('show', 'open');
-        openedCards = [];
+        if (openedCards.length >= 2) {  // if there are two cards or more, remove the eventListener
+            deck.removeEventListener('click', showCard);
+            //matchCard();
+        }
     }
 }
-*/
+
+
+
+let matchedCards = [];
+
+function matchCard () {
+    if (openedCards[0] === openedCards[1]) { // if the cards in the openedCards array are the same
+        for (let opCard of openedCards) {   // for each card
+            opCard.classList.remove('show', 'open').add('match'); // add and remove given classes
+            matchedCards.push(opCard);  // and push it to new matchedCards array
+        }
+    }
+    else {  // if the cards in the openedCards array are NOT the same
+        for (let opCard of openedCards) {   // for each card
+            opCard.classList.remove('show', 'open');    // remove given classes
+        }
+    }
+    openedCards = [];   // empty the array
+    deck.addEventListener('click', showCard) //add eventListener again
+}
+
 
 
  /*  
@@ -88,3 +96,15 @@ function matchCard () {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+/* TEST
+function zkouska() {
+    if (openedCards[0].classList === openedCards[1].classList) {
+        console.log('SEDI!');
+    }
+    else {
+        console.log('NESEDI')
+    }
+}
+*/
+
