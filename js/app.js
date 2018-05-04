@@ -5,13 +5,6 @@ var cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube'
 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
  
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below = done
- *   - loop through each card and create its HTML = pomoci jednoho for of loopu
- *   - add each card's HTML to the page = pomoci doc.fragmentu, add to DOM
- */
-
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -27,6 +20,12 @@ function shuffle(array) {
     return array;
 }
 
+/*
+ * Display the cards on the page
+ *   - shuffle the list of cards using the provided "shuffle" method above
+ *   - loop through each card and create its HTML
+ *   - add each card's HTML to the page
+ */
 
 function newCards () {
     shuffle(cards); // Make cards array shuffled
@@ -46,7 +45,9 @@ function newCards () {
 window.onload = newCards();
 
 /* set up the event listener for a card. If a card is clicked:
-- display the card's symbol (put this functionality in another function that you call from this one)*/
+- display the card's symbol (put this functionality in another function that you call from this one)
+- add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)*/
+
 
 let deck = document.querySelector('.deck');
 deck.addEventListener('click', showCard)
@@ -54,57 +55,58 @@ deck.addEventListener('click', showCard)
 let openedCards = [];
 
 function showCard (card) {
-    if (event.target.nodeName === 'LI') {
+    if (event.target.nodeName === 'LI') { //TODO: A ZÁROVEŇ ABY NEMĚL CLASS.CONTAINS(OPEN), NEBO innerHTML?? ABY NEŠLO KLIMOUT DVAKRÁT NA STEJNOU KARTU
         event.target.classList.add('show', 'open');
         if (openedCards.length < 2) {   // if there are less than two cards in openedCards array, add the clicked one to this array
             openedCards.push(event.target);
         }
         if (openedCards.length >= 2) {  // if there are two cards or more, remove the eventListener
             deck.removeEventListener('click', showCard);
-            //matchCard();
-        }
+            matchCard();
+        } 
     }
 }
 
-
+ /*  
+ *  - if the list already has another card, check to see if the two cards match
+ *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+ *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+ */
 
 let matchedCards = [];
 
 function matchCard () {
-    if (openedCards[0] === openedCards[1]) { // if the cards in the openedCards array are the same
+    if (openedCards[0].innerHTML === openedCards[1].innerHTML) { // if the cards in the openedCards array are the same
         for (let opCard of openedCards) {   // for each card
-            opCard.classList.remove('show', 'open').add('match'); // add and remove given classes
+            opCard.classList.remove('show', 'open'); // add and remove given classes
+            opCard.classList.add('match');
             matchedCards.push(opCard);  // and push it to new matchedCards array
         }
     }
     else {  // if the cards in the openedCards array are NOT the same
         for (let opCard of openedCards) {   // for each card
+            setTimeout(function() {
             opCard.classList.remove('show', 'open');    // remove given classes
+            }, 1000);
         }
     }
-    openedCards = [];   // empty the array
-    deck.addEventListener('click', showCard) //add eventListener again
+    closeCards();
 }
 
+function closeCards () {
+    openedCards = [];   // empty the array
+    deck.addEventListener('click', showCard) //add eventListener again 
+}
+
+//TODO: aby nešla kliknout treti karta, kdy jsou dve otevrene, preventDefault?
 
 
- /*  
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+
+
+
+/*
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-/* TEST
-function zkouska() {
-    if (openedCards[0].classList === openedCards[1].classList) {
-        console.log('SEDI!');
-    }
-    else {
-        console.log('NESEDI')
-    }
-}
-*/
 
