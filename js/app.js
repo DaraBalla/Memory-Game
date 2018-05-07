@@ -55,7 +55,7 @@ deck.addEventListener('click', showCard)
 let openedCards = [];
 
 function showCard (card) {
-    if (event.target.nodeName === 'LI') { //TODO: A ZÁROVEŇ ABY NEMĚL CLASS.CONTAINS(OPEN), NEBO innerHTML?? ABY NEŠLO KLIMOUT DVAKRÁT NA STEJNOU KARTU
+    if (event.target.nodeName === 'LI' && event.target.classList.contains('open') === false) { // click on the card, but not on the open one
         event.target.classList.add('show', 'open');
         if (openedCards.length < 2) {   // if there are less than two cards in openedCards array, add the clicked one to this array
             openedCards.push(event.target);
