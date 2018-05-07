@@ -81,16 +81,17 @@ function matchCard () {
             opCard.classList.remove('show', 'open'); // add and remove given classes
             opCard.classList.add('match');
             matchedCards.push(opCard);  // and push it to new matchedCards array
+            closeCards ();
         }
     }
     else {  // if the cards in the openedCards array are NOT the same
         for (let opCard of openedCards) {   // for each card
             setTimeout(function() {
             opCard.classList.remove('show', 'open');    // remove given classes
-            }, 1000);
+            closeCards();
+            }, 500);
         }
     }
-    closeCards();
 }
 
 function closeCards () {
@@ -98,7 +99,7 @@ function closeCards () {
     deck.addEventListener('click', showCard) //add eventListener again 
 }
 
-//TODO: aby nešla kliknout treti karta, kdy jsou dve otevrene, preventDefault?
+
 
 
 
