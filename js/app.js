@@ -94,7 +94,7 @@ function matchCard () {
     }
 }
 
-function closeCards () {
+function closeCards () { //close UNMATCHED cards
     openedCards = [];   // empty the array
     deck.addEventListener('click', showCard) //add eventListener again 
 }
@@ -111,3 +111,23 @@ function closeCards () {
  */
 
 
+// RESTART BUTTON
+
+let restart = document.querySelector('.restart');
+restart.addEventListener('click', newGame);
+
+let classCards = document.querySelectorAll('.card');
+
+function newGame () {
+    for (let classCard of classCards) {
+        classCard.classList.remove('match'); // close all cards
+        
+    };
+    shuffle(cards);// shuffle all cards - why this doesn't work here?!
+    
+    //TODO:
+    //vyprázdni matchedCards
+    //vynuluj časovač
+    //naplň hvězdičky ratings
+    //
+}
