@@ -116,18 +116,14 @@ function closeCards () { //close UNMATCHED cards
 let restart = document.querySelector('.restart');
 restart.addEventListener('click', newGame);
 
-let classCards = document.querySelectorAll('.card');
-
 function newGame () {
+    let classCards = document.querySelectorAll('.card');
     for (let classCard of classCards) {
-        classCard.classList.remove('match'); // close all cards
-        
+        classCard.remove(); // remove all cards
     };
-    shuffle(cards);// shuffle all cards - why this doesn't work here?!
-    
+    newCards(); // shuffle and display new cards
+    matchedCards = [] //empty matchedCards
     //TODO:
-    //vyprázdni matchedCards
     //vynuluj časovač
     //naplň hvězdičky ratings
-    //
 }
