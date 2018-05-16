@@ -96,13 +96,8 @@ function matchCard () {
 
 function closeCards () { //close UNMATCHED cards
     openedCards = [];   // empty the array
-    deck.addEventListener('click', showCard) //add eventListener again 
+    deck.addEventListener('click', showCard); //add eventListener again 
 }
-
-
-
-
-
 
 
 /*
@@ -111,7 +106,89 @@ function closeCards () { //close UNMATCHED cards
  */
 
 
+//
+// TIMER - inspired by https://www.cssscript.com/a-minimal-pure-javascript-stopwatch/
+//
+
+
+window.onload = startTimer();
+
+var minutes = 00; 
+var seconds = 00; 
+var appendSeconds = document.getElementById("seconds")
+var appendMinutes = document.getElementById("minutes")
+var interval;
+
+
+function startTimer () {
+  
+    let classCards = document.querySelectorAll('.card');
+    
+    for (let classCard of classCards) {
+        classCard.addEventListener('click', start);
+        
+    }
+}
+  
+
+function start () {
+    if (!interval) { // run timer only on first click = if Interval is not defined
+        //clearInterval(interval); - to tady byt nemusi, ne? funguje i bez toho
+        interval = setInterval(timer, 1000);
+    }
+}
+
+
+function timer () {
+      seconds++; 
+      
+      if (seconds < 9) {
+        appendSeconds.innerHTML = "0" + seconds;
+        }
+      
+      if (seconds > 9) {
+        appendSeconds.innerHTML = seconds;
+        } 
+      
+      if (seconds > 59) {
+        console.log("minutes");
+        minutes++;
+        appendMinutes.innerHTML = "0" + minutes;
+        seconds = 0;
+        appendSeconds.innerHTML = "0" + 0;
+        }
+      
+      if (minutes > 9) {
+        appendMinutes.innerHTML = minutes;
+        }
+}
+
+
+function resetTimer() {
+    clearInterval(interval);
+    seconds = "00";
+    minutes = "00";
+    appendSeconds.innerHTML = seconds;
+    appendMinutes.innerHTML = minutes;
+    interval = undefined;
+}
+    
+// POUŽÍT AŽ JAK BUDOU OTEVŘENÉ VŠECHNY KARTY = konec hry
+/*  buttonStop.onclick = function() {
+        clearInterval(Interval);
+}*/
+
+
+//Only for trying functions    
+var button = document.getElementById("button");
+button.addEventListener('click', resetTimer)
+
+
+
+//
 // RESTART BUTTON
+//
+
 
 let restart = document.querySelector('.restart');
 restart.addEventListener('click', newGame);
@@ -122,8 +199,20 @@ function newGame () {
         classCard.remove(); // remove all cards
     };
     newCards(); // shuffle and display new cards
-    matchedCards = [] //empty matchedCards
+    openedCards = []; //aby pred resetem nezustala otevrena jedna karta a po resetu by se nova karta hned zavrela
+    matchedCards = []; //empty matchedCards
+    resetTimer (); //vynuluj časovač - ok
+    startTimer (); //nove spusteni casovace po restartu az po dalsim kliku - OK
     //TODO:
-    //vynuluj časovač
+    //vynuluj počet moves
     //naplň hvězdičky ratings
+
 }
+
+
+
+
+ 
+/* KDE JSEM SKONČILA/NA ČEM PRACUJU:
+*   - zacit s poctem moves
+*/
