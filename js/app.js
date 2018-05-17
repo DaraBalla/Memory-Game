@@ -98,6 +98,7 @@ function matchCard () {
         }
     }
     moveCounter ();
+    rating ();
 }
 
 function closeCards () { //close UNMATCHED cards
@@ -183,7 +184,7 @@ function resetTimer() {
 
 //Only for trying functions    
 var button = document.getElementById("button");
-button.addEventListener('click', resetCounter)
+button.addEventListener('click', rating)
 
 
 
@@ -206,8 +207,7 @@ function newGame () {
     resetTimer (); //vynuluj časovač - ok
     startTimer (); //nove spusteni casovace po restartu az po dalsim kliku - OK
     resetCounter ();//vynuluj počet moves
-    //TODO:
-    //naplň hvězdičky ratings
+    resetRating ();//naplň hvězdičky ratings
 
 }
 
@@ -235,6 +235,38 @@ function resetCounter () {
     counter.innerHTML = moves;
 }
 
+
+//
+// STAR RATINGS
+//
+
+var two = document.getElementById('two');
+var three = document.getElementById('three');
+
+function rating () {
+    if (moves > 2) {
+        emptyStar (three);
+    }
+    if (moves > 3) {
+        emptyStar (two);
+    }
+}
+
+function emptyStar (star) {
+    star.classList.remove('fa-star');
+    star.classList.add('fa-star-o');
+}
+
+function resetRating () {
+    fillStar (two);
+    fillStar (three);
+}
+
+function fillStar (star) {
+    star.classList.remove('fa-star-o');
+    star.classList.add('fa-star');
+}
+
 /* KDE JSEM SKONČILA/NA ČEM PRACUJU:
-*   - zacit s ratings
+*   - zacit s modal
 */
