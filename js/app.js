@@ -20,12 +20,14 @@ function shuffle(array) {
     return array;
 }
 
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method above
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
- */
+*/
+
 
 function newCards () {
     shuffle(cards); // Make cards array shuffled
@@ -43,6 +45,7 @@ function newCards () {
 }
 
 window.onload = newCards();
+
 
 /* set up the event listener for a card. If a card is clicked:
 - display the card's symbol (put this functionality in another function that you call from this one)
@@ -67,11 +70,13 @@ function showCard (card) {
     }
 }
 
- /*  
+
+/*  
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- */
+*/
+
 
 let matchedCards = [];
 
@@ -92,6 +97,7 @@ function matchCard () {
             }, 500);
         }
     }
+    moveCounter ();
 }
 
 function closeCards () { //close UNMATCHED cards
@@ -100,15 +106,11 @@ function closeCards () { //close UNMATCHED cards
 }
 
 
-/*
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
-
 
 //
 // TIMER - inspired by https://www.cssscript.com/a-minimal-pure-javascript-stopwatch/
 //
+
 
 
 window.onload = startTimer();
@@ -181,7 +183,7 @@ function resetTimer() {
 
 //Only for trying functions    
 var button = document.getElementById("button");
-button.addEventListener('click', resetTimer)
+button.addEventListener('click', resetCounter)
 
 
 
@@ -203,16 +205,36 @@ function newGame () {
     matchedCards = []; //empty matchedCards
     resetTimer (); //vynuluj časovač - ok
     startTimer (); //nove spusteni casovace po restartu az po dalsim kliku - OK
+    resetCounter ();//vynuluj počet moves
     //TODO:
-    //vynuluj počet moves
     //naplň hvězdičky ratings
 
 }
 
+/*
+ *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+ *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+*/
 
 
 
- 
+//
+// MOVE COUNTER
+//
+
+var counter = document.getElementById('counter');
+let moves = 0
+
+function moveCounter(){
+    moves++;
+    counter.innerHTML = moves;
+}
+
+function resetCounter () {
+    moves = 0;
+    counter.innerHTML = moves;
+}
+
 /* KDE JSEM SKONČILA/NA ČEM PRACUJU:
-*   - zacit s poctem moves
+*   - zacit s ratings
 */
