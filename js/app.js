@@ -53,7 +53,7 @@ window.onload = newCards();
 
 
 let deck = document.querySelector('.deck');
-deck.addEventListener('click', showCard)
+deck.addEventListener('click', showCard);
 
 let openedCards = [];
 
@@ -136,7 +136,6 @@ function startTimer () {
 
 function start () {
     if (!interval) { // run timer only on first click = if Interval is not defined
-        //clearInterval(interval); - to tady byt nemusi, ne? funguje i bez toho
         interval = setInterval(timer, 1000);
     }
 }
@@ -176,15 +175,9 @@ function resetTimer() {
     interval = undefined;
 }
     
-// POUŽÍT AŽ JAK BUDOU OTEVŘENÉ VŠECHNY KARTY = konec hry
-/*  buttonStop.onclick = function() {
-        clearInterval(Interval);
-}*/
-
-
-//Only for trying functions    
-var button = document.getElementById("button");
-button.addEventListener('click', rating)
+function stopTimer () {
+        clearInterval(interval);
+}
 
 
 
@@ -208,7 +201,8 @@ function newGame () {
     startTimer (); //nove spusteni casovace po restartu az po dalsim kliku - OK
     resetCounter ();//vynuluj počet moves
     resetRating ();//naplň hvězdičky ratings
-
+    popModal ();
+    closeModal(); //zavři modal, jestli je otevřený;
 }
 
 /*
@@ -244,10 +238,10 @@ var two = document.getElementById('two');
 var three = document.getElementById('three');
 
 function rating () {
-    if (moves > 2) {
+    if (moves > 15) {
         emptyStar (three);
     }
-    if (moves > 3) {
+    if (moves > 20) {
         emptyStar (two);
     }
 }
@@ -267,6 +261,80 @@ function fillStar (star) {
     star.classList.add('fa-star');
 }
 
+
+//
+// FINAL MODAL - THE END OF THE GAME
+//
+
+
+
+var modal = document.getElementById("winModal");
+var captionText = document.getElementById("caption");
+var closex = document.getElementsByClassName("x")[0];
+
+
+function popModal () {
+    if (matchedCards.length >= 14 && openedCards.length >=1) {
+        setTimeout(function() {
+        getModal ();  
+        }, 500)
+        
+    }
+}
+
+deck.addEventListener('click', popModal);
+
+function getModal (){
+modal.style.display = "block";
+captionText.innerHTML
+endgame();
+stopTimer();
+}
+
+var cgMoves = document.getElementById("cg_moves");
+var cgTime = document.getElementById("cg_time");
+var cgStar = document.getElementById("cg_star");
+
+function endgame () {
+    cgMoves.innerHTML = moves;
+    cgTime.innerHTML = minutes + " minutes and " + seconds + " seconds ";
+    endRating();
+}
+
+
+closex.addEventListener('click', closeModal);
+
+function closeModal () { 
+modal.style.display = "none";
+}
+
+
+function endRating () {
+    if (moves > 0) {
+        cgStar.innerHTML = "<i class='fa fa-star'><i class='fa fa-star'><i class='fa fa-star'>"
+    }
+    if (moves > 15) {
+        cgStar.innerHTML = "<i class='fa fa-star'><i class='fa fa-star'>";
+    }
+    if (moves > 20) {
+        cgStar.innerHTML = "<i class='fa fa-star'>";
+    }
+}
+
+var newButton = document.getElementById("new_button");
+newButton.addEventListener('click', newGame)
+
+
+
+
 /* KDE JSEM SKONČILA/NA ČEM PRACUJU:
-*   - zacit s modal
+*   -vyskocit modal pri konci hry
 */
+
+
+
+//Only for trying functions    
+var button = document.getElementById("button");
+button.addEventListener('click', popModal)
+
+
