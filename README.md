@@ -1,20 +1,1 @@
-# Memory Game Project
-
-## Table of Contents
-
-* [Instructions](#instructions)
-* [Contributing](#contributing)
-
-## Instructions
-
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+﻿﻿﻿﻿# Memory Game Project## Table of Contents* The purpose and goal of playing MEMORY GAME* Instructions to play* The making of MEMORY GAME## The purpose and goal of playing MEMORY GAMEMemory Game trains your brain and attention. You need to reveal all cards and match all pairs with as least moves as possible.## Instructions to playWhen you click on the first card, the timer starts and the move counter starts count your revealed pairs of cards. The first card stay open until you click the next card - if the symbols on the cards are the same, the cards stay opened. If the symbols on revealed cards are different, the cards return back after 0.5 seconds and hide the symbols. You have to remember as much symbols and their position as possible to make match. After matching all 16 cards (8 pairs) the game ends with a pop-up with your score: number of moves, time and number of stars. Under your score you find a button for a new game, if you want to play again, you can just click it. Otherwise you can close the pop-up with the cross in top right corner.Anytime there is a restart button available above the deck with cards, which can give you an opportunity to start a new game before the previous game is finished. ## The making of MEMORY GAMEI started with shuffle function which shuffles all cards in an array and these shuffled cards areadded into deck. The second step was to make cards clickable and after click they should reveal the symbol. If the symbols are the same, the matchCard function make them opened and if they are not, the same function close them with a 0.5 seconds delay to have time to see both cards opened and try to remember them.The timer loads when the game is load but starts only after the first card is clicked and stops when the game ends. The move counter is defined to count only revealed pairs of cards for counting the attempts of making match.The rating is displayed through the stars based on number of moves - if there are less then 16 moves, the player becomes 3 stars, if there are between 16 and 20 moves the player becomes 2 stars and more than 20 moves awards you with one star.At the end of the game the modal is displayed. The modal uses data like moves, time and stars. On the bottom of the modal there is a button for playing new game. This button:- restart the timer to zero and give them the function to start again after first click on card- restart the move counter from zero- fill all stars in rating- close the modal.
