@@ -113,13 +113,12 @@ h1 {
     padding: 3em;
 }
 
-/* MODAL z portfolia*/
+/* MODAL */
 
 .modal {
     display: none;
     position: fixed;
     z-index: 1;
-    /*padding-top: 550px;*/
     left: 0;
     top: 0;
     width: 100%;

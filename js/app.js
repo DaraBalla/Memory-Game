@@ -32,7 +32,7 @@ function shuffle(array) {
 function newCards () {
     shuffle(cards); // Make cards array shuffled
     const docFragment = document.createDocumentFragment();
-    for (let card of cards) {    // Loop through each card and create its HTML and add each card's HTML to the docFragment
+    for (let card of cards) { // Loop through each card and create its HTML and add each card's HTML to the docFragment
         var newLi = document.createElement('li');
         var newI = document.createElement('i');
         newLi.classList.add('card');
@@ -41,7 +41,7 @@ function newCards () {
         docFragment.appendChild(newLi).appendChild(newI);
     }
     var deck = document.querySelector('.deck');
-    deck.appendChild(docFragment);  // Add a docFragment to .deck (to the page HTML)
+    deck.appendChild(docFragment); // Add a docFragment to .deck (to the page HTML)
 }
 
 window.onload = newCards();
@@ -60,10 +60,10 @@ let openedCards = [];
 function showCard (card) {
     if (event.target.nodeName === 'LI' && event.target.classList.contains('open') === false) { // click on the card, but not on the open one
         event.target.classList.add('show', 'open');
-        if (openedCards.length < 2) {   // if there are less than two cards in openedCards array, add the clicked one to this array
+        if (openedCards.length < 2) { // if there are less than two cards in openedCards array, add the clicked one to this array
             openedCards.push(event.target);
         }
-        if (openedCards.length >= 2) {  // if there are two cards or more, remove the eventListener
+        if (openedCards.length >= 2) { // if there are two cards or more, remove the eventListener
             deck.removeEventListener('click', showCard);
             matchCard();
         } 
@@ -82,17 +82,17 @@ let matchedCards = [];
 
 function matchCard () {
     if (openedCards[0].innerHTML === openedCards[1].innerHTML) { // if the cards in the openedCards array are the same
-        for (let opCard of openedCards) {   // for each card
+        for (let opCard of openedCards) { // for each card
             opCard.classList.remove('show', 'open'); // add and remove given classes
             opCard.classList.add('match');
-            matchedCards.push(opCard);  // and push it to new matchedCards array
-            closeCards ();
+            matchedCards.push(opCard); // and push it to new matchedCards array
+            closeCards (); 
         }
     }
-    else {  // if the cards in the openedCards array are NOT the same
-        for (let opCard of openedCards) {   // for each card
+    else { // if the cards in the openedCards array are NOT the same
+        for (let opCard of openedCards) { // for each card
             setTimeout(function() {
-            opCard.classList.remove('show', 'open');    // remove given classes
+            opCard.classList.remove('show', 'open'); // remove given classes after 0.5 sec
             closeCards();
             }, 500);
         }
@@ -101,9 +101,9 @@ function matchCard () {
     rating ();
 }
 
-function closeCards () { //close UNMATCHED cards
-    openedCards = [];   // empty the array
-    deck.addEventListener('click', showCard); //add eventListener again 
+function closeCards () { // close UNMATCHED cards
+    openedCards = []; // empty the array
+    deck.addEventListener('click', showCard); // add eventListener again
 }
 
 
@@ -118,8 +118,8 @@ window.onload = startTimer();
 
 var minutes = 00; 
 var seconds = 00; 
-var appendSeconds = document.getElementById("seconds")
-var appendMinutes = document.getElementById("minutes")
+var appendSeconds = document.getElementById("seconds");
+var appendMinutes = document.getElementById("minutes");
 var interval;
 
 
@@ -132,10 +132,10 @@ function startTimer () {
         
     }
 }
-  
+
 
 function start () {
-    if (!interval) { // run timer only on first click = if Interval is not defined
+    if (!interval) { // run timer only on the first click = if Interval is not defined
         interval = setInterval(timer, 1000);
     }
 }
@@ -174,7 +174,7 @@ function resetTimer() {
     appendMinutes.innerHTML = minutes;
     interval = undefined;
 }
-    
+
 function stopTimer () {
         clearInterval(interval);
 }
@@ -193,16 +193,16 @@ function newGame () {
     let classCards = document.querySelectorAll('.card');
     for (let classCard of classCards) {
         classCard.remove(); // remove all cards
-    };
+    }
     newCards(); // shuffle and display new cards
-    openedCards = []; //aby pred resetem nezustala otevrena jedna karta a po resetu by se nova karta hned zavrela
-    matchedCards = []; //empty matchedCards
-    resetTimer (); //vynuluj časovač - ok
-    startTimer (); //nove spusteni casovace po restartu az po dalsim kliku - OK
-    resetCounter ();//vynuluj počet moves
-    resetRating ();//naplň hvězdičky ratings
+    openedCards = []; // empty the array for the case there remain a card open from previous game
+    matchedCards = []; // empty matchedCards
+    resetTimer ();
+    startTimer ();
+    resetCounter ();
+    resetRating ();
     popModal ();
-    closeModal(); //zavři modal, jestli je otevřený;
+    closeModal ();
 }
 
 /*
@@ -211,15 +211,14 @@ function newGame () {
 */
 
 
-
 //
 // MOVE COUNTER
 //
 
 var counter = document.getElementById('counter');
-let moves = 0
+let moves = 0;
 
-function moveCounter(){
+function moveCounter() {
     moves++;
     counter.innerHTML = moves;
 }
@@ -266,8 +265,6 @@ function fillStar (star) {
 // FINAL MODAL - THE END OF THE GAME
 //
 
-
-
 var modal = document.getElementById("winModal");
 var captionText = document.getElementById("caption");
 var closex = document.getElementsByClassName("x")[0];
@@ -276,15 +273,14 @@ var closex = document.getElementsByClassName("x")[0];
 function popModal () {
     if (matchedCards.length >= 14 && openedCards.length >=1) {
         setTimeout(function() {
-        getModal ();  
-        }, 500)
-        
+        getModal ();
+        }, 500);
     }
 }
 
 deck.addEventListener('click', popModal);
 
-function getModal (){
+function getModal () {
 modal.style.display = "block";
 captionText.innerHTML
 endgame();
@@ -311,7 +307,7 @@ modal.style.display = "none";
 
 function endRating () {
     if (moves > 0) {
-        cgStar.innerHTML = "<i class='fa fa-star'><i class='fa fa-star'><i class='fa fa-star'>"
+        cgStar.innerHTML = "<i class='fa fa-star'><i class='fa fa-star'><i class='fa fa-star'>";
     }
     if (moves > 15) {
         cgStar.innerHTML = "<i class='fa fa-star'><i class='fa fa-star'>";
@@ -322,19 +318,4 @@ function endRating () {
 }
 
 var newButton = document.getElementById("new_button");
-newButton.addEventListener('click', newGame)
-
-
-
-
-/* KDE JSEM SKONČILA/NA ČEM PRACUJU:
-*   -vyskocit modal pri konci hry
-*/
-
-
-
-//Only for trying functions    
-var button = document.getElementById("button");
-button.addEventListener('click', popModal)
-
-
+newButton.addEventListener('click', newGame);
